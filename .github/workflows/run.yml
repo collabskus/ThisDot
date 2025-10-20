@@ -13,13 +13,10 @@ jobs:
     
     steps:
     - name: Checkout Repository
-      uses: actions/checkout@v4
+      uses: actions/checkout@v5
       
     - name: Setup .NET SDK
-      # Note: Since your .csproj targets net10.0 (a future version), 
-      # we use the latest available stable SDK (8.x) for the environment setup. 
-      # If net10.0 is officially released, you would change '8.x' to '10.x'.
-      uses: actions/setup-dotnet@v4
+      uses: actions/setup-dotnet@v5
       with:
         dotnet-version: '10.x' 
 
