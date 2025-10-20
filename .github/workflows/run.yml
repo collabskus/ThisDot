@@ -1,0 +1,49 @@
+name: .NET Console Build and Run
+
+on:
+  [push, pull_request]
+
+# Grant necessary permissions for the workflow
+permissions:
+  contents: read
+
+jobs:
+  build-and-run:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+      
+    - name: Setup .NET SDK
+      # Note: Since your .csproj targets net10.0 (a future version), 
+      # we use the latest available stable SDK (8.x) for the environment setup. 
+      # If net10.0 is officially released, you would change '8.x' to '10.x'.
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '10.x' 
+
+    - name: Restore Dependencies
+      # Restores all packages for the solution file
+      run: dotnet restore ThisDot.slnx
+
+    - name: Build Project
+      # Builds the solution. Using --no-restore since it was done in the previous step.
+      run: dotnet build ThisDot.slnx --configuration Release --no-restore
+
+    - name: Run Application and Verify Output
+      # Runs the executable project and captures its output.
+      # We target the specific project file path.
+      run: |
+        echo "Attempting to run the application..."
+        OUTPUT=$(dotnet run --project ThisDot/ThisDot.csproj)
+        echo "Application Output: $OUTPUT"
+        
+        # Verify the output matches the expected result from Program.cs
+        if [[ "$OUTPUT" == "Namaste Kushal" ]]; then
+          echo "✅ Application ran successfully and produced the correct output."
+        else
+          echo "❌ Application output verification failed."
+          echo "Expected: Nam0aste Kushal"
+          exit 1
+        fi

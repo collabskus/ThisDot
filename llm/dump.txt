@@ -1,0 +1,106 @@
+﻿
+===============================================================================
+ASP.NET PROJECT EXPORT
+Generated: 10/20/2025 16:10:47
+Project Path: C:\Users\kushal\source\repos\ThisDot
+===============================================================================
+
+DIRECTORY STRUCTURE:
+===================
+
+Folder PATH listing
+Volume serial number is 9892-5BAD
+C:\USERS\KUSHAL\SOURCE\REPOS\THISDOT
+|   .gitignore
+|   README.md
+|   ThisDot.slnx
+|   
++---llm
+|       dump.txt
+|       export.ps1
+|       
+\---ThisDot
+        Program.cs
+        ThisDot.csproj
+        
+
+
+FILE CONTENTS:
+==============
+
+================================================================================
+FILE: ThisDot.slnx
+SIZE: 0.07 KB
+MODIFIED: 10/20/2025 15:58:10
+================================================================================
+
+<Solution>
+  <Project Path="ThisDot/ThisDot.csproj" />
+</Solution>
+
+
+
+================================================================================
+FILE: ThisDot\Program.cs
+SIZE: 0.96 KB
+MODIFIED: 10/20/2025 15:58:53
+================================================================================
+
+public class Program
+{
+    public static void Main()
+    {
+        string name = "Kushal";
+        Person person = new Person(name);
+        string greeting = person.Greet();
+        Console.WriteLine(greeting);
+    }
+}
+
+public class Person
+{
+    private string name;
+    public Person(string name)
+    {
+        // using name = name is incorrect here 
+        // because it is not clear which name we are talking about 
+        // so we use this dot here 
+        // name = name;	
+        this.name = name;
+    }
+    public string Greet()
+    {
+        return "Namaste " + name;
+    }
+}
+// Output: Namaste Kushal
+// Explanation: In this example, we have a Person class with a constructor that takes a name parameter.
+// Inside the constructor, we use this.name to refer to the instance variable name,
+// distinguishing it from the parameter name. This ensures that the instance variable is correctly assigned the value passed to the constructor.
+
+
+
+================================================================================
+FILE: ThisDot\ThisDot.csproj
+SIZE: 0.25 KB
+MODIFIED: 10/20/2025 15:58:08
+================================================================================
+
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+</Project>
+
+
+
+===============================================================================
+EXPORT COMPLETED: 10/20/2025 16:10:47
+Total Files Exported: 3
+Output File: C:\Users\kushal\source\repos\ThisDot\llm\dump.txt
+===============================================================================
