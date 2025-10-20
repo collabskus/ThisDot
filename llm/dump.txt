@@ -1,7 +1,7 @@
 ﻿
 ===============================================================================
 ASP.NET PROJECT EXPORT
-Generated: 10/20/2025 16:10:47
+Generated: 10/20/2025 16:15:10
 Project Path: C:\Users\kushal\source\repos\ThisDot
 ===============================================================================
 
@@ -15,6 +15,10 @@ C:\USERS\KUSHAL\SOURCE\REPOS\THISDOT
 |   README.md
 |   ThisDot.slnx
 |   
++---.github
+|   \---workflows
+|           run.yml
+|           
 +---llm
 |       dump.txt
 |       export.ps1
@@ -27,6 +31,61 @@ C:\USERS\KUSHAL\SOURCE\REPOS\THISDOT
 
 FILE CONTENTS:
 ==============
+
+================================================================================
+FILE: .github\workflows\run.yml
+SIZE: 1.4 KB
+MODIFIED: 10/20/2025 16:13:48
+================================================================================
+
+name: .NET Console Build and Run
+
+on:
+  [push, pull_request]
+
+# Grant necessary permissions for the workflow
+permissions:
+  contents: read
+
+jobs:
+  build-and-run:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v5
+      
+    - name: Setup .NET SDK
+      uses: actions/setup-dotnet@v5
+      with:
+        dotnet-version: '10.x' 
+
+    - name: Restore Dependencies
+      # Restores all packages for the solution file
+      run: dotnet restore ThisDot.slnx
+
+    - name: Build Project
+      # Builds the solution. Using --no-restore since it was done in the previous step.
+      run: dotnet build ThisDot.slnx --configuration Release --no-restore
+
+    - name: Run Application and Verify Output
+      # Runs the executable project and captures its output.
+      # We target the specific project file path.
+      run: |
+        echo "Attempting to run the application..."
+        OUTPUT=$(dotnet run --project ThisDot/ThisDot.csproj)
+        echo "Application Output: $OUTPUT"
+        
+        # Verify the output matches the expected result from Program.cs
+        if [[ "$OUTPUT" == "Namaste Kushal" ]]; then
+          echo "âœ… Application ran successfully and produced the correct output."
+        else
+          echo "âŒ Application output verification failed."
+          echo "Expected: Nam0aste Kushal"
+          exit 1
+        fi
+
+
 
 ================================================================================
 FILE: ThisDot.slnx
@@ -100,7 +159,7 @@ MODIFIED: 10/20/2025 15:58:08
 
 
 ===============================================================================
-EXPORT COMPLETED: 10/20/2025 16:10:47
-Total Files Exported: 3
+EXPORT COMPLETED: 10/20/2025 16:15:11
+Total Files Exported: 4
 Output File: C:\Users\kushal\source\repos\ThisDot\llm\dump.txt
 ===============================================================================
